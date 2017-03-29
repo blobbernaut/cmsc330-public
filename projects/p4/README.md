@@ -154,8 +154,8 @@ accept n "abac" = true
   * `outgoing_counts` is an associative list mapping number of outgoing edges to the number of states with that number of outgoing edges. The list must be sorted by the the number of outgoing transitions.
 * **Examples** (where `m` and `n` are nfas defined above):
 ```
-stats m = (3, 1, [(0,1);(1,2)]) 
-stats n = (3, 1, [(0,1);(1,1);(2,1)]) 
+stats m = {num_states = 3; num_finals = 1; outgoing_counts = [(0, 1); (1, 2)]}
+stats n = {num_states = 3; num_finals = 1; outgoing_counts = [(0, 1); (1, 1); (2, 1)]}
 ```
 * **Explanation**: 
   1. Here `m` has a total of 3 states and 1 final state. The list is read as follows, `m` has 1 state with 0 outgoing edges and 2 states with 1 outgoing edge. Remember that the tuple is of the following format (n edges , x states).
@@ -198,7 +198,7 @@ regexp_to_string (Union (Char 'a', Char 'b')) = "a|b"
 regexp_to_string (Concat(Char 'a',Char 'b')) = "ab"
 regexp_to_string (Concat(Char 'a',Concat(Char 'a',Char 'b'))) = "aab"
 regexp_to_string (Star(Union(Char 'a',Empty_String))) = "(a|E)*" (* Note that 'E' represents epsilon! *)
-regexp_to_string (Concat(Star(Union(Char 'a',Empty_String)),Union(Char 'a',Char 'b'))) = "(a|e)*(a|b)"
+regexp_to_string (Concat(Star(Union(Char 'a',Empty_String)),Union(Char 'a',Char 'b'))) = "(a|E)*(a|b)"
 ```
 * **Hint:** You can do this as an in-order DFS traversal over the regexp data structure.
 <!-- TODO is this too big a hint? -->
@@ -228,24 +228,23 @@ Precedence | Operator | Description
 ---------- | -------- | -----------
 1 | () | parentheses
 2 | * | closure
-3 |  | concatenation
+3 | | concatenation
 4 | &#124; | union
 
 Also, note that all the binary operators are **right associative**. 
 
 Project Submission
 ------------------
-You should submit a file `nfa.ml` containing your solution. You may submit other files, but they will be ignored during grading. We will run your solution as individual OUnit tests just as in the provided public test file.
+You should submit both files `nfa.ml` and `regexp.ml` containing your solution. You may submit other files, but they will be ignored during grading. We will run your solution as individual OUnit tests just as in the provided public test file.
 
 Be sure to follow the project description exactly! Your solution will be graded automatically, so any deviation from the specification will result in lost points.
 
 You can submit your project in two ways:
 
-* Submit your nfa.ml file directly to the [submit server][submit server] by clicking on the submit link in the column next to the project number.Then, use the submit dialog to submit your nfa.ml file directly. 
-Select your file using the "Browse" button, then press the "Submit project!" button. You do not need to put it in a zip file.
-![Upload your file][web upload example]
+* Submit both your `nfa.ml` and `regexp.ml` files directly to the [submit server](https://submit.cs.umd.edu/spring2017/view/index.jsp) by uploading both your files in two seperate steps. Select your files using the "Browse" button, then press the "Submit project!" button. You do not need to put it in a zip file.
+
 * Submit directly by executing a the submission script on a computer with Java and network access. Included in this project are the submission scripts and related files listed under Project Files. These files should be in the directory containing your project. From there you can either execute `ruby submit.rb` or run the command `java -jar submit.jar` directly (this is all submit.rb does).
-No matter how you choose to submit your project, make sure that your submission is received by checking the [submit server][submit server] after submitting.
+No matter how you choose to submit your project, make sure that your submission is received by checking the [submit server](https://submit.cs.umd.edu/spring2017/view/index.jsp) after submitting.
 
 Academic Integrity
 ------------------
